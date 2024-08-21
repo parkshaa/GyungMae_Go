@@ -1,9 +1,6 @@
 package GyungMaeGo.jpashop.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,13 +9,28 @@ import lombok.Setter;
 @Setter
 public class User {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="UserNo")  // 기본키 설정.
-    private Long UserNo;
+    private Long userNo;
 
-    private String UserId;
-    private String UserPw;
-    private String Name;
-    private String Phone;
-    private String Address;
+    @Column(nullable = false, unique = true, name = "user_id")
+    private String userId;
+
+    @Column(nullable = false, name = "user_pw")
+    private String userPw;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "phone")
+    private String phone;
+
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "provider")
+    private String provider; // Google, Kakao, Local 등
+
+    @Column(name = "provider_id")
+    private String providerId; // 소셜 로그인 시 사용되는 고유 ID
 }
