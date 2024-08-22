@@ -7,16 +7,17 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+@Table(name = "TUSERMST")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="UserNo")  // 기본키 설정.
+    @Column(name="userNo")  // 기본키 설정.
     private Long userNo;
 
-    @Column(nullable = false, unique = true, name = "user_id")
+    @Column(nullable = false, unique = true, name = "userId")
     private String userId;
 
-    @Column(nullable = false, name = "user_pw")
+    @Column(nullable = false, name = "userPw")
     private String userPw;
 
     @Column(name = "name")
@@ -31,6 +32,6 @@ public class User {
     @Column(name = "provider")
     private String provider; // Google, Kakao, Local 등
 
-    @Column(name = "provider_id")
+    @Column(name = "providerId")
     private String providerId; // 소셜 로그인 시 사용되는 고유 ID
 }
