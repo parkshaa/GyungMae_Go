@@ -1,15 +1,13 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: header">
+<head th:replace="~{fragments/header :: header}"> <!-- 수정된 부분: <div>을 <head>로 바꿈 -->
     <title>Hello</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
-
+</head> <!-- 수정된 부분: <div>을 <head>로 바꿈 -->
 <body>
-
 <div class="container">
 
-    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <div th:replace="~{fragments/bodyHeader :: bodyHeader}"></div> <!-- <div> 태그 자체가 닫히도록 변경 -->
 
     <div class="jumbotron">
         <h1>HELLO SHOP</h1>
@@ -34,9 +32,8 @@
         </p>
     </div>
 
-    <div th:replace="fragments/footer :: footer" />
+    <div th:replace="~{fragments/footer :: footer}"></div> <!-- <div> 태그 자체가 닫히도록 변경 -->
 
 </div> <!-- /container -->
-
 </body>
 </html>

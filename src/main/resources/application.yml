@@ -4,24 +4,52 @@ spring:
     username: sa
     password: 1
     driver-class-name: org.h2.Driver
+  profiles:
+    include: oauth
 
   jpa:
     hibernate:
       ddl-auto: create
     properties:
       hibernate:
-        #        show_sql: true
         format_sql: true
-
-#logging.level:
-  #org.hibernate.SQL: debug
-  #org.hibernate.type: trace
 
   security:
     oauth2:
       client:
         registration:
           google:
-            client-id: "974320703377-7mc4flmb4a84qh7l1j4nvgab4ts9b1n9.apps.googleusercontent.com"
-            client-secret: "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"
-            scope: profile, email
+            run: |
+              echo "client-id=$id" >> .env
+              echo "client-secret=$Gsecret" >> .env
+            env:
+              client-id: ${{secrets.id}}
+              client-secret: ${{secrets.Gsecret}}
+            scope:
+              - email
+              - profile
+          kakao:
+            run: |
+              echo "client-id=$Kid" >> .env
+            env:
+              client-id: ${{secrets.Kid}}
+            client-secret: ""
+            redirect-uri: "http://localhost:8080/login/oauth2/code/kakao"
+            client-name: Kakao
+            authorization-grant-type: authorization_code
+            scope:
+              - profile_nickname
+              - profile_image
+        provider:
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-name-attribute: id
+  kakao:
+    pay:
+      admin-key: your_kakao_admin_key
+      cid: TC0ONETIME  # 테스트 CID
+      ready-url: https://kapi.kakao.com/v1/payment/ready
+      approve-url: https://kapi.kakao.com/v1/payment/approve
+      cancel-url: https://kapi.kakao.com/v1/payment/cancel

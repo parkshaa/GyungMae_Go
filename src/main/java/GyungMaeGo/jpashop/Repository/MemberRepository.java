@@ -1,48 +1,42 @@
-package GyungMaeGo.jpashop.Repository;
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
 
+package GyungMaeGo.jpashop.Repository;
 
 import GyungMaeGo.jpashop.domain.Member;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+import lombok.Generated;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-@RequiredArgsConstructor
 public class MemberRepository {
+    private final EntityManager em;
 
-
-    private final EntityManager em;  //의존성 주입함. EntityManager
-
-
-    public void save(Member member){
-        em.persist(member);
+    public void save(Member member) {
+        this.em.persist(member);
     }
 
-    public Member findOne(Long id){
-        return em.find(Member.class , id);   //Member찾기. 단건조회.
+    public Member findOne(Long id) {
+        return (Member)this.em.find(Member.class, id);
     }
 
-    public List<Member> findAll(){
-        return em.createQuery("select m from Member m" , Member.class)  //쿼리만들어서 회원리스트 반환. JPA는 테이블대상이아니라 객체대상으로 조회시킴.
-                  .getResultList();
-
+    public List<Member> findAll() {
+        return this.em.createQuery("select m from Member m", Member.class).getResultList();
     }
 
-    public List<Member> findByName(String name){
-        return em.createQuery("select m from Member m where m.name = :name", Member.class)
-                .setParameter("name" , name)
-                .getResultList();
+    public List<Member> findByName(String name) {
+        return this.em.createQuery("select m from Member m where m.name = :name", Member.class).setParameter("name", name).getResultList();
     }
-
 
     public String findByPassword(String name) {
-        return em.createQuery("select m.password from Member m where m.name = :name", String.class)
-                .setParameter("name", name)
-                .getSingleResult();
+        return (String)this.em.createQuery("select m.password from Member m where m.name = :name", String.class).setParameter("name", name).getSingleResult();
     }
 
+    @Generated
+    public MemberRepository(final EntityManager em) {
+        this.em = em;
+    }
 }

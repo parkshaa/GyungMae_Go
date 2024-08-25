@@ -1,10 +1,14 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
 package GyungMaeGo.jpashop.Repository;
 
 import GyungMaeGo.jpashop.domain.User;
-import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> findByProviderAndProviderId(String provider, String providerId);
-    Optional<User> findByUserId(String userId); // UserId로 사용자 찾기
+    Optional<User> findByEmail(String email);
 }

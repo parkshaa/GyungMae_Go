@@ -1,4 +1,4 @@
-package GyungMaeGo.jpashop.Config;
+package GyungMaeGo.jpashop.Config.Auth;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,19 +29,19 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .formLogin(formLogin -> formLogin
-                        .loginPage("/login") // 커스텀 로그인 페이지 경로
-                        .defaultSuccessUrl("/", true) // 로그인 성공 시 이동할 기본 경로
-                        .permitAll() // 로그인 페이지에 대한 접근 허용
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/hello", true)
+                        .permitAll()
                 )
                 .oauth2Login(oauth2 -> oauth2
                         .loginPage("/login")
-                        .defaultSuccessUrl("/", true)
+                        .defaultSuccessUrl("/hello", true)
                         .userInfoEndpoint(userInfo -> userInfo
                                 .userService(oAuth2UserService)
                         )
                 )
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/login?logout") // 로그아웃 성공 시 이동할 경로
+                        .logoutSuccessUrl("/login?logout")
                         .permitAll()
                 );
 
